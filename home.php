@@ -1895,41 +1895,36 @@ function sgear_ins(){ // switch gear insert to db
 
 for(var i = 1; i < sgtable.rows.length; i++) //for power cable table
 {
-var cub = document.getElementById("cub_num").innerHTML;
-var des = pctable.rows[i].cells[0].innerHTML;
-var mat = pctable.rows[i].cells[1].innerHTML;
-var type = pctable.rows[i].cells[2].innerHTML;
-var size = pctable.rows[i].cells[3].innerHTML;
-var run = pctable.rows[i].cells[4].innerHTML;
-var len = pctable.rows[i].cells[5].innerHTML;
-var curr = pctable.rows[i].cells[6].innerHTML;
-var ploss = pctable.rows[i].cells[7].innerHTML;
-$.ajax({
-    type: 'post',
-    url: 'cal-insert.php',
-    data:
-    {
-      pc_ins: 'ok',
-      pcub: cub,    //power cable cubicle
-      pdes: des,    //power cable description
-      pmat: mat,    //power cable material
-      ptype: type,    //power cable type
-      psize: size,    //power cable size
-      prun: run,    //power cable run
-      plen: len,    //power cable length
-      pcurr: curr,  //power cable currenct
-      pploss: ploss //power cable power loss
-    },
-    dataType:'json',
-    success: function pcables_ins (response) { 
-      alert("ok");        
-    }
-  });
+  var cub = document.getElementById("cub_num").innerHTML;
+  var man = pctable.rows[i].cells[0].innerHTML;
+  var type = pctable.rows[i].cells[1].innerHTML;
+  var range = pctable.rows[i].cells[2].innerHTML;
+  var model = pctable.rows[i].cells[3].innerHTML;
+  var qnty = pctable.rows[i].cells[4].innerHTML;
+  var rate = pctable.rows[i].cells[5].innerHTML;
+  var ploss = pctable.rows[i].cells[6].innerHTML;
+  $.ajax({
+      type: 'POST',
+      url: 'cal-insert.php',
+      data:
+      {
+        sg_ins: 'ok',
+        sgcub: cub,     //switch gear cubicle
+        sgman:man ,     //switch gear description
+        sgtype: type,   //switch gear material
+        sgrange: range, //switch gear type
+        sgmodel: model, //switch gear size
+        sgqnty: qnty,   //switch gear run
+        sgrate: rate,   //switch gear length
+        sgploss: ploss  //switch gear power loss
+      },
+      dataType:'json',
+      success: function sgear_ins (response) { 
+        alert("ok");        
+      }
+    });
+  }
 }
-}
-
-
-
 
 function datains(){ // database sending function collection
   bbar_ins(); //bus bar insert

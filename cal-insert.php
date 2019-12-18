@@ -60,6 +60,30 @@ if (isset($_POST['pc_ins'])){ // power cable insert
     die(json_encode($mess));
 }
 
+if (isset($_POST['sg_ins'])){ // switch gear insert 
+
+    $cub = $_POST['pcub'];   //cubicle number
+    $man = $_POST['sgman'];   //manufacturer
+    $type = $_POST['sgtype'];   //type
+    $range = $_POST['sgrange'];   //range
+    $model = $_POST['sgmodel'];   //model
+    $qnty = $_POST['sgqnty'];   //quantity
+    $rate = $_POST['sgrate'];   //rate
+    $ploss = $_POST['sgploss'];   //ploss
+    
+
+    //echo $cub;
+    $sql = $conn->query("INSERT INTO `pcable`(`userid`, `project_no`, `cubicle`, `des`, `mat`, `type`, `size`, `run`, `len`, `curr`, `ploss`) 
+    VALUES ('$name','sample123','$cub','$des','$mat','$type',$size,$run,$len,$curr,$ploss)");
+    
+    if ($conn->query($sql) === TRUE) {
+        $mess =  "New record created successfully";
+    } 
+    else {
+        $mess =  "Error: " . $sql . "<br>" . $conn->error;
+    }
+    die(json_encode($mess));
+}
 
 
 ?>

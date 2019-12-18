@@ -851,8 +851,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </tbody>
   </table>
 
-
-
 </div>
     </div>
     <!-- /.content -->
@@ -873,7 +871,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      Anything you want
+      Heat rise calculator
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2010-2019 <a href="#">KIK Lanka</a>.</strong> All rights reserved.

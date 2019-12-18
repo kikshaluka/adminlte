@@ -9,6 +9,7 @@
 session_start();
 include('conn.php');
 $name=$_SESSION['name'];
+$id=$_SESSION['id'];
 
 
 if (isset($_POST['bb_ins'])){ // bus bar insert 
@@ -24,7 +25,7 @@ if (isset($_POST['bb_ins'])){ // bus bar insert
     $ploss = $_POST['bploss']; //power loss
 
     $sql = $conn->query("INSERT INTO `bbar`(`userid`, `project_no`, `cubicle`, `des`, `mat`, `wid`, `thi`, `run`, `len`, `curr`, `ploss`) 
-    VALUES ('$name','sample123','$cub','$des','$mat',$wid,$thi,$run,$len,$curr,$ploss)");
+    VALUES ('$id','sample123','$cub','$des','$mat',$wid,$thi,$run,$len,$curr,$ploss)");
     
     if ($conn->query($sql) === TRUE) {
         $mess =  "New record created successfully";
@@ -49,7 +50,7 @@ if (isset($_POST['pc_ins'])){ // power cable insert
 
     //echo $cub;
     $sql = $conn->query("INSERT INTO `pcable`(`userid`, `project_no`, `cubicle`, `des`, `mat`, `type`, `size`, `run`, `len`, `curr`, `ploss`) 
-    VALUES ('$name','sample123','$cub','$des','$mat','$type',$size,$run,$len,$curr,$ploss)");
+    VALUES ('$id','sample123','$cub','$des','$mat','$type',$size,$run,$len,$curr,$ploss)");
     
     if ($conn->query($sql) === TRUE) {
         $mess =  "New record created successfully";
@@ -62,22 +63,20 @@ if (isset($_POST['pc_ins'])){ // power cable insert
 
 if (isset($_POST['sg_ins'])){ // switch gear insert 
 
-    $cub = $_POST['pcub'];   //cubicle number
-    $man = $_POST['sgman'];   //manufacturer
+    $cub = $_POST['sgcub'];     //cubicle number
+    $man = $_POST['sgman'];     //manufacturer
     $type = $_POST['sgtype'];   //type
-    $range = $_POST['sgrange'];   //range
+    $range = $_POST['sgrange'];  //range
     $model = $_POST['sgmodel'];   //model
     $qnty = $_POST['sgqnty'];   //quantity
     $rate = $_POST['sgrate'];   //rate
     $ploss = $_POST['sgploss'];   //ploss
     
-
-    //echo $cub;
-    $sql = $conn->query("INSERT INTO `pcable`(`userid`, `project_no`, `cubicle`, `des`, `mat`, `type`, `size`, `run`, `len`, `curr`, `ploss`) 
-    VALUES ('$name','sample123','$cub','$des','$mat','$type',$size,$run,$len,$curr,$ploss)");
+    $sql = $conn->query("INSERT INTO `sgear`(`userid`, `project_no`, `cubicle`, `man`, `type`, `pcrange`, `model`, `qnty`, `rate`, `ploss`) 
+    VALUES ('$id','sample123','$cub','$man','$type','$range','$model',$qnty,$rate,$ploss)");
     
     if ($conn->query($sql) === TRUE) {
-        $mess =  "New record created successfully";
+        $mess =  "New Record Created Successfully";
     } 
     else {
         $mess =  "Error: " . $sql . "<br>" . $conn->error;

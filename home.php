@@ -834,7 +834,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <button type="button" class="btn btn-primary btn-lg" onclick="calcutaion()">Send</button>
 <button type="button" class="btn btn-success btn-lg" onclick="save_gen()">View</button>
 <button type="button" class="btn btn-success btn-lg" >Print</button>
-<button type="button" class="btn btn-danger btn-lg" onclick="datains()" >Test</button>
+<button type="button" class="btn btn-danger btn-lg" onclick="datains()" >Save</button>
   <!--ends here-->
     <br/><br/><br/><br/>
     <!--power loss summery-->
@@ -1896,13 +1896,13 @@ function sgear_ins(){ // switch gear insert to db
 for(var i = 1; i < sgtable.rows.length; i++) //for power cable table
 {
   var cub = document.getElementById("cub_num").innerHTML;
-  var man = pctable.rows[i].cells[0].innerHTML;
-  var type = pctable.rows[i].cells[1].innerHTML;
-  var range = pctable.rows[i].cells[2].innerHTML;
-  var model = pctable.rows[i].cells[3].innerHTML;
-  var qnty = pctable.rows[i].cells[4].innerHTML;
-  var rate = pctable.rows[i].cells[5].innerHTML;
-  var ploss = pctable.rows[i].cells[6].innerHTML;
+  var man = sgtable.rows[i].cells[0].innerHTML;
+  var type = sgtable.rows[i].cells[1].innerHTML;
+  var range = sgtable.rows[i].cells[2].innerHTML;
+  var model = sgtable.rows[i].cells[3].innerHTML;
+  var qnty = sgtable.rows[i].cells[4].innerHTML;
+  var rate = sgtable.rows[i].cells[5].innerHTML;
+  var ploss = sgtable.rows[i].cells[6].innerHTML;
   $.ajax({
       type: 'POST',
       url: 'cal-insert.php',
@@ -1927,8 +1927,11 @@ for(var i = 1; i < sgtable.rows.length; i++) //for power cable table
 }
 
 function datains(){ // database sending function collection
-  bbar_ins(); //bus bar insert
-  pcables_ins(); // power cable insert
+
+  bbar_ins();     //  bus bar insert
+  pcables_ins();  //  power cable insert
+  sgear_ins();    //  switch gear insert
+  
 
 }
 

@@ -11,7 +11,7 @@ if (isset($_POST['val_option'])){ // rated current
     $str2="judfhiurklfnsdifhreis";
     $pass=$str1.$passwrd.$str2;
 
-    $sql = $conn->query("SELECT  `user_name`, `user_password`, `user_email`, `user_type`, `pin_statues` FROM `cus_users` WHERE `user_name`='$uname'");
+    $sql = $conn->query("SELECT  * FROM `cus_users` WHERE `user_name`='$uname'");
 
     $array=array();
     while ($row = $sql->fetch_assoc()) { 
@@ -27,6 +27,7 @@ if (isset($_POST['val_option'])){ // rated current
         }
         else{
             $_SESSION['name'] = $row['user_name']; // user name
+            $_SESSION['id'] = $row['user_id']; // user id
             $array = array(
                 'stat' => $r,
                 'res' => 'success',

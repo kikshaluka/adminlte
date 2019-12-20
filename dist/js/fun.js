@@ -1029,7 +1029,6 @@ function order_ref(){
       data:
       {
         ref_req: 'y',
-        
       },
       dataType:'json',
       success: function order_ref (response) { 

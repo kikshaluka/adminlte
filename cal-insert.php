@@ -88,6 +88,7 @@ if (isset($_POST['ref_req'])){ // reference number request
 
     $req = $_POST['ref_req'];     //ref reqest
     
+
     
     $sql = $conn->query("INSERT INTO `sgear`(`userid`, `project_no`, `cubicle`, `man`, `type`, `pcrange`, `model`, `qnty`, `rate`, `ploss`) 
     VALUES ('$id','sample123','$cub','$man','$type','$range','$model',$qnty,$rate,$ploss)");

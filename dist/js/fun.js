@@ -140,7 +140,6 @@ function gmnf_load(){ //gear manufacturers load - startup
              $("#gmnf").append(new Option(response[i], response[i]));
 
           }
-            
           }
         });
 }

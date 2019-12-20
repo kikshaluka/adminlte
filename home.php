@@ -397,6 +397,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     </div>
 
+    <div class="form-group">
+    <label class="control-label col-sm-3" for="wFactor" data-toggle="tooltip" title="Width Factor">Width Factor:</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="wFactor" placeholder="Width Factor" name="wFactor" disabled>
+    </div>
+    </div>
+    
 
     <div class="panel-group form-group" id="natural">
     <label class="control-label col-sm-2" for="email">Power:</label>

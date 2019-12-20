@@ -9,6 +9,9 @@ else{
   $name=$_SESSION['name'];
   $id=$_SESSION['id'];
 }
+
+include_once('conn.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -229,7 +232,6 @@ else{
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>150</h3>
-
                 <p>New Orders</p>
               </div>
               <div class="icon">
@@ -246,6 +248,47 @@ else{
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+        <!-- Main content -->
+        <section class="content">
+      <div class="container-fluid">
+        <h5 class="mb-2">Saved Projects</h5>
+        <div class="row">
+
+       <?php 
+         /* 
+            echo "<table><th>BadNoise Artists</th>";
+            $result =$conn->query("SELECT DISTINCT g_mnf FROM gears");
+            while($row = mysqli_fetch_array($result)){
+            echo "<tr><td>" . $row['FirstName'] . "</td><td>" . $row['LastName'] . "</td><td><button id='" . $row['artistId'] . "'>Get External Content</button></td></tr>" ;
+            }
+            echo "</table>";*/
+        ?>
+
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+                <p>New Orders</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-pallet"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                view project <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+
+
 
     <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>

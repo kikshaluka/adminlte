@@ -84,5 +84,20 @@ if (isset($_POST['sg_ins'])){ // switch gear insert
     die(json_encode($mess));
 }
 
+if (isset($_POST['ref_req'])){ // reference number request
+
+    $cub = $_POST['ref_req'];     //ref reqest
+    
+    $sql = $conn->query("INSERT INTO `sgear`(`userid`, `project_no`, `cubicle`, `man`, `type`, `pcrange`, `model`, `qnty`, `rate`, `ploss`) 
+    VALUES ('$id','sample123','$cub','$man','$type','$range','$model',$qnty,$rate,$ploss)");
+    
+    if ($conn->query($sql) === TRUE) {
+        $mess =  "New Record Created Successfully";
+    } 
+    else {
+        $mess =  "Error: " . $sql . "<br>" . $conn->error;
+    }
+    die(json_encode($mess));
+}
 
 ?>

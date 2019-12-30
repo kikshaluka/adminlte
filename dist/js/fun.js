@@ -574,6 +574,7 @@ function sgear_add_dis(){ //swich gear add buton disable
       else{
         document.getElementById("sgadd").disabled = true; 
       }
+	  
 }
 
 function pcable_add_dis(){ //power cable add buton disable
@@ -592,6 +593,7 @@ function pcable_add_dis(){ //power cable add buton disable
       else{
         document.getElementById("pcadd").disabled = true; 
       }
+	   
 }
 
 function bbar_add_dis(){ //bus bar add buton disable
@@ -610,6 +612,7 @@ function bbar_add_dis(){ //bus bar add buton disable
       else{
         document.getElementById("bbadd").disabled = true; 
       }
+	   
 }
 
 function csgear_add_dis(){ //custom switch gear disable 
@@ -626,9 +629,9 @@ function csgear_add_dis(){ //custom switch gear disable
   else{
         document.getElementById("csgadd").disabled = true; 
       }
-
-
 }
+
+
 //bus bar separate table addition
 
 function bbar_s_table(){ //bus bar separate table load
@@ -656,6 +659,7 @@ function bbar_s_table(){ //bus bar separate table load
 
   bbploss_calc();
   change_value();
+  viewdis();
 
 }
 
@@ -680,8 +684,9 @@ function pcable_s_table(){
   document.getElementById("pc_current").value = "";
   document.getElementById("pcadd").disabled = true;
 
-  pcploss_calc()
+  pcploss_calc();
   change_value();
+  viewdis();
 
 
 }
@@ -708,6 +713,8 @@ document.getElementById("g_qty").value = "";
 document.getElementById("sgadd").disabled = true; 
 sgploss_calc();
 change_value();
+viewdis();
+
 }
 
 
@@ -736,6 +743,7 @@ document.getElementById("cusg_power").value = "";
 document.getElementById("csgadd").disabled = true; 
 csgploss_calc();
 change_value();
+viewdis();
 }
 
 
@@ -775,8 +783,11 @@ function ef_cooling(){ //t0.5 calculation
             dfac: Dfactor // demand factor
           },
           dataType:'json',
-          success: function ef_cooling (response) { 
-            alert(response["t05"]);           
+          success: function ef_cooling (response) {
+				
+			document.getElementById("delta_five").innerHTML = response["t05"].toFixed(2);
+			document.getElementById("delta_one").innerHTML = response["t1"].toFixed(2);
+       
           }
         });
     }
@@ -799,8 +810,11 @@ function ef_cooling(){ //t0.5 calculation
 
           },
           dataType:'json',
-          success: function ef_cooling (response) { 
+          success: function ef_cooling (response) {
+			document.getElementById("delta_five").innerHTML = response["t05"].toFixed(2);
+			document.getElementById("delta_one").innerHTML = response["t1"].toFixed(2);
             alert(response["t05"]);         
+            alert(response["t1"]);         
 
           }
         });
@@ -821,7 +835,10 @@ function ef_cooling(){ //t0.5 calculation
           },
           dataType:'json',
           success: function ef_cooling (response) { 
+		  document.getElementById("delta_five").innerHTML = response["t05"].toFixed(2);
+			document.getElementById("delta_one").innerHTML = response["t1"].toFixed(2);
             alert(response["t05"]);           
+            alert(response["t1"]);           
           }
         });
   }
@@ -832,7 +849,10 @@ function ef_cooling(){ //t0.5 calculation
 }
 
 function save_gen(){
-
+	
+	viewdis(); // view button disable
+	
+	
   //var row  = document.getElementById("myTable").rows.length;
   var cub = parseFloat(document.getElementById("cub_num").innerHTML);
 
@@ -872,7 +892,13 @@ function save_gen(){
     var newrow = '<tr><td>'+ cub +'</td><td>Switch gear</td><td>'+ name +'</td><td>'+ ploss +'</td></tr>';
     $('#plosssumm tr:last').after(newrow);
   }
-
+	
+	var dfive = document.getElementById("delta_five").value;
+	var newrow = '<tr><td>&#916;t0.5 </td><td>'dfive'</td></tr>';
+	$('#plosssumm tr:last').after(newrow);
+	
+	
+	
     $("#bbsumm").find("tr:gt(0)").remove();
     $("#pcsumm").find("tr:gt(0)").remove();
     $("#sgsumm").find("tr:gt(0)").remove();
@@ -900,9 +926,9 @@ function change_value(){
   document.getElementById('totplosssumm').rows[parseInt(2,10)].cells[parseInt(1,10)].innerHTML= document.getElementById("pc_sum_value").innerHTML;
   document.getElementById('totplosssumm').rows[parseInt(3,10)].cells[parseInt(1,10)].innerHTML= document.getElementById("sg_sum_value").innerHTML;
   document.getElementById('totplosssumm').rows[parseInt(4,10)].cells[parseInt(1,10)].innerHTML= document.getElementById("c_sg_sum_value").innerHTML;
-
-
-}
+	
+	
+  }
 
 function bbar_ins(){ // busbar insert to db 
 
@@ -1049,4 +1075,21 @@ function datains(){ // database sending function collection
 
 }
 
+function test(){
+	alert("test");
+}
 
+function viewdis(){ // view button disable
+	var bbar = document.getElementById('totplosssumm').rows[parseInt(1,10)].cells[parseInt(1,10)].innerHTML; // busbar
+	var pc = document.getElementById('totplosssumm').rows[parseInt(2,10)].cells[parseInt(1,10)].innerHTML; // power cable
+	var sg = document.getElementById('totplosssumm').rows[parseInt(3,10)].cells[parseInt(1,10)].innerHTML; // switch gear
+	var csg = document.getElementById('totplosssumm').rows[parseInt(4,10)].cells[parseInt(1,10)].innerHTML; // custom switch gear
+	if(bbar > 0 && pc > 0 && sg > 0){
+		//alert ("all filled");
+		document.getElementById("view_btn").disabled = false; 
+	}
+	else{
+		//alert ("3 need to be filed");
+		document.getElementById("view_btn").disabled = true;
+	}
+}

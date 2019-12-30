@@ -41,7 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+		
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -51,6 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 <style>
     font{
@@ -403,6 +404,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input type="text" class="form-control" id="wFactor" placeholder="Width Factor" name="wFactor" disabled>
     </div>
     </div>
+	
+	<div class="form-group">
+    <label class="control-label col-sm-3" for="Ae" data-toggle="tooltip" title="Ae">Ae:</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="Ae" placeholder="Ae" name="Ae" disabled>
+    </div>
+    </div>
+	
+
     
 
     <div class="panel-group form-group" id="natural">
@@ -818,9 +828,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <table class="table" id="totplosssumm">
     <thead class="thead-dark">
       <tr>
-        <th>Name</th>
+        <th>Item</th>
         <th>Power Loss</th>
-        <th>Action</th>
       </tr>
       <tr>
         <td>Busbar</td>
@@ -842,14 +851,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <tbody> 
     </tbody>
   </table>
-  <b><span>Raw Power Loss : </span><span id="total_sum_value"></span></b> <!--total power loss cal-->
+  <b><span>Raw Power Loss : </span><span id="total_sum_value"></span></b> <br/><!--total power loss cal-->
+  <b><span>	&#916;t0.5 : </span><span id="delta_five"></span></b> <br/><!--delta 0.5-->
+  <b><span>&#916;t1 : </span><span id="delta_one"></span></b> <!--delta 1-->
   
 <!--switch gear ends-->
 </div>
 <button type="button" class="btn btn-primary btn-lg" onclick="calcutaion()">Send</button>
-<button type="button" class="btn btn-success btn-lg" onclick="save_gen()">View</button>
+<button type="button" class="btn btn-success btn-lg" id="view_btn" onclick="save_gen()" disabled>View</button>
 <button type="button" class="btn btn-success btn-lg" >Print</button>
 <button type="button" class="btn btn-danger btn-lg" onclick="datains()" >Save</button>
+<button type="button" class="btn btn-danger btn-lg" onclick="viewdis()" >Test</button>
   <!--ends here-->
     <br/><br/><br/><br/>
     <!--power loss summery-->
@@ -886,7 +898,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      Heat rise calculator
+      Heat Rise calculator
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2010-2019 <a href="#">KIK Lanka</a>.</strong> All rights reserved.
@@ -902,7 +914,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!--built in functions-->
+ <!--built in functions-->
 <script src="dist/js/fun.js"></script>
 <script>
 

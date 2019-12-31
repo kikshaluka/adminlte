@@ -254,7 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     <div class="content">
-    <div class="container">
+    <div class="container-fluid">
 <div class="page-header">
     <p>Project Reference Number : kik123</p>  
     <p id ="prefno">kik123</p>    
@@ -857,10 +857,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
 <!--switch gear ends-->
 </div>
-<button type="button" class="btn btn-primary btn-lg" onclick="calcutaion()">Send</button>
-<button type="button" class="btn btn-success btn-lg" id="view_btn" onclick="save_gen()" disabled>View</button>
+<button type="button" class="btn btn-primary btn-lg" onclick="calcutaion()">Show</button>
+<button type="button" class="btn btn-success btn-lg" id="view_btn" onclick="save_gen()" disabled>Add</button>
 <button type="button" class="btn btn-success btn-lg" >Print</button>
-<button type="button" class="btn btn-danger btn-lg" onclick="datains()" >Save</button>
+<button type="button" class="btn btn-danger btn-lg" onclick="datains()" >Save project</button>
 <button type="button" class="btn btn-danger btn-lg" onclick="viewdis()" >Test</button>
   <!--ends here-->
     <br/><br/><br/><br/>

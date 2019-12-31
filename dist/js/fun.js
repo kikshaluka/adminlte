@@ -760,8 +760,8 @@ function ef_cooling(){ //t0.5 calculation
   var hs = document.getElementById("hseparation").value; // horizontal sep
   var Dfactor = document.getElementById("Dfactor").value; // Demand Factor
   var rpwrloss = document.getElementById("total_sum_value").innerHTML; //row power loss
-  var larea = document.getElementById("larea").value;
-  
+  var larea = document.getElementById("larea").value; // louver area
+  var ambtemp = document.getElementById("atemp").value; // ambient temp
   if (ae != '' || cs != ''){ // to find ae or cooling system is blank
   //to send data to T0.5 calculation.
     if(ae > 1.25 && (cs=='forced' || cs=='air')){ 
@@ -787,6 +787,7 @@ function ef_cooling(){ //t0.5 calculation
 				
 			document.getElementById("delta_five").innerHTML = response["t05"].toFixed(2);
 			document.getElementById("delta_one").innerHTML = response["t1"].toFixed(2);
+			document.getElementById('Tmaxheight').value = ambtemp + response["t1"].toFixed(2);
        
           }
         });
@@ -813,6 +814,7 @@ function ef_cooling(){ //t0.5 calculation
           success: function ef_cooling (response) {
 			document.getElementById("delta_five").innerHTML = response["t05"].toFixed(2);
 			document.getElementById("delta_one").innerHTML = response["t1"].toFixed(2);
+			document.getElementById("Tmaxheight").value = ambtemp + response["t1"].toFixed(2);
             alert(response["t05"]);         
             alert(response["t1"]);         
 
@@ -837,6 +839,7 @@ function ef_cooling(){ //t0.5 calculation
           success: function ef_cooling (response) { 
 		  document.getElementById("delta_five").innerHTML = response["t05"].toFixed(2);
 			document.getElementById("delta_one").innerHTML = response["t1"].toFixed(2);
+			document.getElementById("Tmaxheight").value = ambtemp + response["t1"].toFixed(2);
             alert(response["t05"]);           
             alert(response["t1"]);           
           }
@@ -894,7 +897,7 @@ function save_gen(){
   }
 	
 	var dfive = document.getElementById("delta_five").value;
-	var newrow = '<tr><td>&#916;t0.5 </td><td>'dfive'</td></tr>';
+	var newrow = '<tr><td>&#916;t0.5 </td><td>'+ dfive +'</td></tr>';
 	$('#plosssumm tr:last').after(newrow);
 	
 	
@@ -910,10 +913,10 @@ function save_gen(){
     document.getElementById("c_sg_sum_value").innerHTML = 0;
     document.getElementById("total_sum_value").innerHTML = 0;
 
-    document.getElementById('totplosssumm').rows[parseInt(1,10)].cells[parseInt(1,10)].innerHTML= 0;
-  document.getElementById('totplosssumm').rows[parseInt(2,10)].cells[parseInt(1,10)].innerHTML= 0;
-  document.getElementById('totplosssumm').rows[parseInt(3,10)].cells[parseInt(1,10)].innerHTML= 0;
-  document.getElementById('totplosssumm').rows[parseInt(4,10)].cells[parseInt(1,10)].innerHTML= 0;
+	document.getElementById('totplosssumm').rows[parseInt(1,10)].cells[parseInt(1,10)].innerHTML= 0;
+	  document.getElementById('totplosssumm').rows[parseInt(2,10)].cells[parseInt(1,10)].innerHTML= 0;
+	  document.getElementById('totplosssumm').rows[parseInt(3,10)].cells[parseInt(1,10)].innerHTML= 0;
+	  document.getElementById('totplosssumm').rows[parseInt(4,10)].cells[parseInt(1,10)].innerHTML= 0;
 
 
     document.getElementById("cub_num").innerHTML = cub+1;

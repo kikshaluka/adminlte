@@ -933,6 +933,24 @@ function change_value(){
 	
   }
 
+  
+  function order_ref(){
+  $.ajax({
+      type: 'POST',
+      url: 'cal-data.php',
+      data:
+      {
+        ref_req: 'y',
+      },
+      dataType:'json',
+      success: function order_ref (response) { 
+        //alert(response["ref"]);
+		document.getElementById("prefno").innerHTML = "Project No: "+response["ref"];
+      }
+    });  
+}
+  
+  
 function bbar_ins(){ // busbar insert to db 
 
   var bbtable = document.getElementById("bbsumm");    //busbar
@@ -940,6 +958,7 @@ function bbar_ins(){ // busbar insert to db
   for(var i = 1; i < bbtable.rows.length; i++) //for busbar table
   {
     var cub = document.getElementById("cub_num").innerHTML;
+	var pnum = document.getElementById("prefno").innerHTML;
     var des = bbtable.rows[i].cells[0].innerHTML;
     var mat = bbtable.rows[i].cells[1].innerHTML;
     var wid = bbtable.rows[i].cells[2].innerHTML;
@@ -962,7 +981,8 @@ function bbar_ins(){ // busbar insert to db
           brun: run,    //bus bar run
           blen: len,    //bus bar length
           bcurr: curr,  //bus bar currenct
-          bploss: ploss //bus bar power loss
+          bploss: ploss, //bus bar power loss
+          bbpnum: pnum //project number
         },
         dataType:'json',
         success: function bbar_ins (response) { 
@@ -980,6 +1000,7 @@ function pcables_ins(){ // power cables insert to db
 for(var i = 1; i < pctable.rows.length; i++) //for power cable table
 {
   var cub = document.getElementById("cub_num").innerHTML;
+  var pnum = document.getElementById("prefno").innerHTML;
   var des = pctable.rows[i].cells[0].innerHTML;
   var mat = pctable.rows[i].cells[1].innerHTML;
   var type = pctable.rows[i].cells[2].innerHTML;
@@ -1002,7 +1023,8 @@ for(var i = 1; i < pctable.rows.length; i++) //for power cable table
         prun: run,    //power cable run
         plen: len,    //power cable length
         pcurr: curr,  //power cable currenct
-        pploss: ploss //power cable power loss
+        pploss: ploss, //power cable power loss
+		pppnum: pnum     // project number
       },
       dataType:'json',
       success: function pcables_ins (response) { 
@@ -1020,6 +1042,7 @@ function sgear_ins(){ // switch gear insert to db
 for(var i = 1; i < sgtable.rows.length; i++) //for power cable table
 {
   var cub = document.getElementById("cub_num").innerHTML;
+  var pnum = document.getElementById("prefno").innerHTML;
   var man = sgtable.rows[i].cells[0].innerHTML;
   var type = sgtable.rows[i].cells[1].innerHTML;
   var range = sgtable.rows[i].cells[2].innerHTML;
@@ -1040,7 +1063,8 @@ for(var i = 1; i < sgtable.rows.length; i++) //for power cable table
         sgmodel: model, //switch gear size
         sgqnty: qnty,   //switch gear run
         sgrate: rate,   //switch gear length
-        sgploss: ploss  //switch gear power loss
+        sgploss: ploss,  //switch gear power loss
+		sgpnum: pnum     // project number
       },
       dataType:'json',
       success: function sgear_ins (response) { 
@@ -1050,30 +1074,34 @@ for(var i = 1; i < sgtable.rows.length; i++) //for power cable table
   }
 }
 
-function order_ref(){
+function order_ins(){
+  
+  var pnum = document.getElementById("prefno").innerHTML;
+  
   $.ajax({
       type: 'POST',
       url: 'cal-insert.php',
       data:
       {
-        ref_req: 'y',
+        or_ins: 'ok',
+		orpnum: pnum     // project number
       },
       dataType:'json',
-      success: function order_ref (response) { 
-        alert("ok");        
+      success: function order_ins (response) { 
+        alert("ok"); 
+	
       }
-    });  
-}
-
-function order_ins(){
+    });
   
 }
+
 
 function datains(){ // database sending function collection
 
   bbar_ins();     //  bus bar insert
   pcables_ins();  //  power cable insert
   sgear_ins();    //  switch gear insert
+  order_ins(); 	// order details insert
 
 
 }
@@ -1096,3 +1124,4 @@ function viewdis(){ // view button disable
 		document.getElementById("view_btn").disabled = true;
 	}
 }
+

@@ -256,8 +256,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
     <div class="container-fluid">
 <div class="page-header">
-    <p>Project Reference Number : kik123</p>  
-    <p id ="prefno">kik123</p>    
+    <p id ="prefno"></p>    
   </div>
 <div class="row">
   <div class="col-lg-6">
@@ -926,7 +925,13 @@ $(function(){ //Hide all the divs on start
     $("#forced").hide();
     $("#air").hide();
     $("#larea").prop('disabled', true);
+
+	
 });
+
+window.onload = function(){
+	order_ref();
+};
 
 </script>
 

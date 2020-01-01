@@ -6,9 +6,11 @@
  * Date: 2019-10-29
  * Time: 09:01 PM
  */
-
-  include_once('conn.php');
-  
+session_start();
+include_once('conn.php');
+$name=$_SESSION['name'];
+$id=$_SESSION['id'];
+ 
   if (isset($_POST['gmnf'])){ // gear manufacturer
 
     $sql = $conn->query("SELECT DISTINCT g_mnf FROM gears");
@@ -175,5 +177,23 @@ if (isset($_POST['bb_cal'])){ // bus bar calculation
         );
     die(json_encode($array));
 }
+
+if (isset($_POST['ref_req'])){ // reference number per user project
+	$date = date("Ymd");
+    //$sql = $conn->query("SELECT SUM(project_id) AS pro FROM `ppanel_orders` where customer_id  = '$id'");
+    $sql = $conn->query("SELECT SUM(project_id) AS pro FROM `ppanel_orders` where customer_id  = 6");
+    $array=array();
+    while ($row = $sql->fetch_assoc()) {            
+        $res=$row['pro'];
+	$ref = "KIK_".$res."_".$date."_".$id;		
+        $array = array(
+            
+            'ref' => $ref,
+        );
+    }
+    die(json_encode($array));
+}
+
+
 
 ?>

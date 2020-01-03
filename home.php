@@ -802,7 +802,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </tbody>
 </table>
 
-<!--switch gear separate table load-->
+<!-- custom switch gear separate table load-->
 
 <table class="table" id="csgsumm">
     <thead class="thead-dark">
@@ -822,6 +822,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--switch gear separate table load-->
 </div>
 <!--custom sg ends here-->
+
+
+
+<!--fan selector-->
+<div class="panel panel-primary">
+  <div class="panel-heading">Fan Selector</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Description</th>
+      <th scope="col">Manufacturer</th>
+      <th scope="col">Model</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Rating (A)</th>
+      <th scope="col">Power Loss (W)</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">></th>
+      <td>Switch gear</td>
+      <td>
+        <input type='text' class="form-control" id="cusmnf" name="gmnf" placeholder='Manufacturer' onkeyup="csgear_add_dis()">      
+      </td>
+      <td>
+      <input type='text' class="form-control" id="cusmodel" name="gmodel" placeholder='Model Name' onkeyup="csgear_add_dis()" >
+      </td>
+      <td>
+        <input type="number" class="form-control" id="cus_qty" placeholder="Quantity" name="g_qty" onkeyup="csgear_add_dis()">
+      </td>
+      <td>
+        <input type="number" class="form-control" placeholder="Rating"  name="g_power" id='cusg_power' onkeyup="csgear_add_dis()">
+      </td>
+      <td>
+        <input type="number" class="form-control" placeholder="Power Loss" id="cuspwrloss" onkeyup="csgear_add_dis()">
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" id='csgadd' onclick='csgear_s_table()' disabled>Add</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<!-- fan selector -->
 
 <!--rated current summery-->
 <table class="table" id="totplosssumm">
@@ -851,6 +897,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </tbody>
   </table>
   <b><span>Raw Power Loss : </span><span id="total_sum_value"></span></b> <br/><!--total power loss cal-->
+  <b><span>Actual Power Loss : </span><span id="act_ploss"></span></b> <br/><!--actual power loss cal-->
   <b><span>	&#916;t0.5 : </span><span id="delta_five"></span></b> <br/><!--delta 0.5-->
   <b><span>&#916;t1 : </span><span id="delta_one"></span></b> <!--delta 1-->
   
@@ -930,7 +977,8 @@ $(function(){ //Hide all the divs on start
 });
 
 window.onload = function(){
-	order_ref();
+  order_ref();
+  startup();
 };
 
 </script>

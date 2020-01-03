@@ -168,9 +168,7 @@ function grange_load(val){ //gear range loader
             $("#grange").append(new Option('--select option--', '0'));
             for (i = 0; i < response.length; i++) {
              $("#grange").append(new Option(response[i], response[i]));
-
           }
-            
           }
         });
 }
@@ -547,6 +545,7 @@ function t_ploss_calc(){ // total power loss calculation
 
   var tot = parseFloat(bb) + parseFloat(pc) + parseFloat(sg) + parseFloat(csg);
   document.getElementById("total_sum_value").innerHTML = tot.toFixed(2);
+  act_ploss_calc(tot); // actual power loss.
 
 }
 
@@ -557,6 +556,10 @@ function ploss_calc(){ //sample total power loss calculation
       sumVal = sumVal + parseFloat(table.rows[i].cells[1].innerHTML);
     }
   document.getElementById("total_sum_value").innerHTML = sumVal;
+
+  
+
+
 } 
 
 function sgear_add_dis(){ //swich gear add buton disable
@@ -739,7 +742,6 @@ document.getElementById("cusmnf").value = "";
 document.getElementById("cusmodel").value = "";
 document.getElementById("cus_qty").value = "";
 document.getElementById("cusg_power").value = "";
-
 document.getElementById("csgadd").disabled = true; 
 csgploss_calc();
 change_value();
@@ -896,7 +898,7 @@ function save_gen(){
     $('#plosssumm tr:last').after(newrow);
   }
 	
-	var dfive = document.getElementById("delta_five").value;
+	var dfive = document.getElementById("delta_five").innerHTML;
 	var newrow = '<tr><td>&#916;t0.5 </td><td>'+ dfive +'</td></tr>';
 	$('#plosssumm tr:last').after(newrow);
 	
@@ -1125,3 +1127,19 @@ function viewdis(){ // view button disable
 	}
 }
 
+function act_ploss_calc(rawploss){ // actual power loss calculator
+
+  var Dfac = document.getElementById("Dfactor").value;
+  var act_ploss = rawploss*(Dfac**2);
+  document.getElementById("act_ploss").innerHTML = act_ploss.toFixed(2);
+
+}
+
+function showFanTable(){ // fan div display
+  document.getElementById('table').style.visibility = "visible";
+}
+
+function hideFanTable(){ // hide fan div
+  document.getElementById('table').style.visibility = "hidden";
+}
+  

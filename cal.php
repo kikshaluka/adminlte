@@ -298,7 +298,28 @@ if(isset($_POST['h125w'])){
 
 
     //echo $t05."<br/>".$t1."<br/>";
-
 }
+
+if(isset($_POST['for_vent'])){ // forced ventilation - fan capacity
+    
+    $loc  = $_POST['loc'];
+    $sql = $conn->query("SELECT `fac` FROM `htofac` WHERE `height`= '$loc'");
+    $array=array();
+
+    while ($row = $sql->fetch_assoc()) {
+
+        $fac = $row['fac'];
+       
+
+        $array = array(
+            'Ae' => $Ae,
+        );
+    }
+    die(json_encode($array));
+}
+
+
+
+
 
 ?>

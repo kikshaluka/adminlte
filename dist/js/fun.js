@@ -1196,9 +1196,7 @@ function fan_model(){ // fan models selector per manifacturer
 function af_sel(){ // air flow 
   var fmodel = document.getElementById("fanmodel").value;
   var fmanf = document.getElementById("fanmnf").value;
-  alert(fmodel);
-  alert(fmanf);
-  
+ 
   $.ajax({
     type: 'POST',
     url: 'cal-data.php',
@@ -1211,6 +1209,8 @@ function af_sel(){ // air flow
     dataType:'json', 
     success: function af_sel (response) { 
       document.getElementById("fanaf").value = response["af"];
+      document.getElementById("fnadd").disabled = false;
+
     }
   });
 

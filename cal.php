@@ -283,6 +283,7 @@ if(isset($_POST['h125w'])){
     $rpwrloss = $_POST['pwrloss']; //row power loss
     $dfac = $_POST['dfac']; // demand factor
 
+
     $loss = $rpwrloss*($dfac**2); //actual power loss
     $val = $height/($width/$wFactor);
 
@@ -318,8 +319,35 @@ if(isset($_POST['for_vent'])){ // forced ventilation - fan capacity
     die(json_encode($array));
 }
 
+if (isset($_POST['fan_cap'])){
+
+    $enc_loc = $_POST['loc'];     // location of the enclosure
+    $act_ploss = $_POST['act_ploss'];  // actual power loss
+    $ae = $_POST['ae'];//Ae
+    $tar_temp = $_POST['ttemp']; // target temperature
+    $amb_temp = $_POST['atemp']; // ambient temp
 
 
+
+    //$sql = $conn->query("SELECT `af` FROM `fan` WHERE `man`= '$f_man' and `model`='$f_model' ");
+    $sql = $conn->query("SELECT `fac` FROM `htofac` WHERE `height`='$enc_loc'");
+    while ($row = $sql->fetch_assoc()) {$heatf=$row['fac'];}
+    echo $heatf;
+
+    if($ae<1.25){
+
+        $val = $height/($width/$wFactor);
+        $c = 1.25746564411252/(1 + EXP(3.0499379294743-2.85423150337704*$val))**(1/13.3533620666701);
+        $temp = ($tar_temp - $amb_temp)/$c;
+        $k = 70.2496526710266*(1+1.35363728862232*$ae/0.00227234009400175)**(-1/1.35363728862232);
+        $ans = ($temp/($k*1))**(1/0.804);
+        //(T7/(P2*P3))^(1/P5)
+    }
+    else{
+        $tar_temp = $_POST['ttemp']; // target temperature
+        $amb_temp = $_POST['atemp']; // ambient temp
+    }
+}
 
 
 ?>

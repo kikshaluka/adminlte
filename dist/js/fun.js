@@ -18,12 +18,18 @@ function myFunction(one,two,three) { // Div selection to hide
     else{
       $("#larea").prop('disabled', true);
     }
+    if(one=='forced'){
+      $("#fan_sel").show();
+    }
+    else{
+      $("#fan_sel").hide();
+    }
     y.style.display = "none";
     z.style.display = "none";
     x.style.display = "block";
   }} 
 
-  function selFunction(name) { // //Div box selection function
+  function selFunction(name) { // Div box selection function
   var selection=name;
   switch(selection) {
   case 'natural':
@@ -117,6 +123,7 @@ function wfaccal(){ //width factor calculation
 function startup(){   //page onload functions are included here.
   gmnf_load();        //switch gear manufacturer loader
   pcmaterial_load();  //power cable material loader
+  fan_mnf() // fan manufacturer load
 }
 
 function gmnf_load(){ //gear manufacturers load - startup
@@ -1142,4 +1149,70 @@ function showFanTable(){ // fan div display
 function hideFanTable(){ // hide fan div
   document.getElementById('table').style.visibility = "hidden";
 }
+
+function fan_mnf(){
+  $.ajax({
+          type: 'POST',
+          url: 'cal-data.php',
+          data:
+          {
+            fmnf: "ok"
+            },
+          dataType:'json',
+          success: function fan_mnf (response) {
+            $("#fanmnf").append(new Option('--select option--', '0'));
+            for (i = 0; i < response.length; i++) {
+             $("#fanmnf").append(new Option(response[i], response[i]));
+
+          }
+          }
+        });
+}
+
+function fan_model(){ // fan models selector per manifacturer
+
+  var man = document.getElementById("fanmnf").value;
+
+  $.ajax({
+          type: 'POST',
+          url: 'cal-data.php',
+          data:
+          {
+            fan_model: "ok",
+            fan_man: man
+            },
+          dataType:'json',
+          success: function fan_mnf (response) {
+            document.getElementById("fanmodel").options.length = 0;
+            $("#fanmodel").append(new Option('--select model--', '0'));
+            for (i = 0; i < response.length; i++) {
+              $("#fanmodel").append(new Option(response[i], response[i]));
+
+          }
+          }
+        });
+      }
+
+function af_sel(){ // air flow 
+  var fmodel = document.getElementById("fanmodel").value;
+  var fmanf = document.getElementById("fanmnf").value;
+  alert(fmodel);
+  alert(fmanf);
   
+  $.ajax({
+    type: 'POST',
+    url: 'cal-data.php',
+    data:
+    {
+      fan_airf: "ok",
+      fn_model: fmodel,
+      fn_man: fmanf
+      },
+    dataType:'json', 
+    success: function af_sel (response) { 
+      document.getElementById("fanaf").value = response["af"];
+    }
+  });
+
+
+}

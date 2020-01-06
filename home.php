@@ -388,8 +388,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     </div>
 
-
-
     <div class="form-group">
     <label class="control-label col-sm-3" for="Ttemp" data-toggle="tooltip" title="Maximum tempreture rise of the enclosure">Target Temp:</label>
     <div class="col-sm-4">
@@ -410,9 +408,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input type="text" class="form-control" id="Ae" placeholder="Ae" name="Ae" disabled>
     </div>
     </div>
-	
-
-    
 
     <div class="panel-group form-group" id="natural">
     <label class="control-label col-sm-2" for="email">Power:</label>
@@ -826,48 +821,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 <!--fan selector-->
-<div class="panel panel-primary">
+<div class="panel panel-primary" id="fan_sel">
   <div class="panel-heading">Fan Selector</div>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Description</th>
       <th scope="col">Manufacturer</th>
       <th scope="col">Model</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Rating (A)</th>
-      <th scope="col">Power Loss (W)</th>
-      <th scope="col">Action</th>
+      <th scope="col">Air Flow</th>
+
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">></th>
-      <td>Switch gear</td>
       <td>
-        <input type='text' class="form-control" id="cusmnf" name="gmnf" placeholder='Manufacturer' onkeyup="csgear_add_dis()">      
+        <select class="form-control" id="fanmnf" placeholder='Manufacturer' onchange="fan_model()"> </select>     
       </td>
       <td>
-      <input type='text' class="form-control" id="cusmodel" name="gmodel" placeholder='Model Name' onkeyup="csgear_add_dis()" >
+      <select class="form-control" id="fanmodel"  placeholder='Model Name' onchange="af_sel()"></select>
       </td>
       <td>
-        <input type="number" class="form-control" id="cus_qty" placeholder="Quantity" name="g_qty" onkeyup="csgear_add_dis()">
+        <input type="number" class="form-control" id="fanaf" placeholder="Air Flow" disabled>
       </td>
       <td>
-        <input type="number" class="form-control" placeholder="Rating"  name="g_power" id='cusg_power' onkeyup="csgear_add_dis()">
-      </td>
-      <td>
-        <input type="number" class="form-control" placeholder="Power Loss" id="cuspwrloss" onkeyup="csgear_add_dis()">
-      </td>
-      <td>
-        <button type="button" class="btn btn-primary" id='csgadd' onclick='csgear_s_table()' disabled>Add</button>
+        <button type="button" class="btn btn-primary" id='fnadd' onclick='sgear_s_table()' disabled>Add</button>
       </td>
     </tr>
   </tbody>
 </table>
 </div>
-<!-- fan selector -->
+<!-- fan selector  end here-->
 
 <!--rated current summery-->
 <table class="table" id="totplosssumm">
@@ -971,6 +956,7 @@ $(function(){ //Hide all the divs on start
     $("#natural").hide(); 
     $("#forced").hide();
     $("#air").hide();
+    $("#fan_sel").hide();
     $("#larea").prop('disabled', true);
 
 	

@@ -8,8 +8,8 @@
  */
 session_start();
 include_once('conn.php');
-$name=$_SESSION['name'];
-$id=$_SESSION['id'];
+//$name=$_SESSION['name'];
+//$id=$_SESSION['id'];
  
   if (isset($_POST['gmnf'])){ // gear manufacturer
 
@@ -185,7 +185,7 @@ if (isset($_POST['ref_req'])){ // reference number per user project
     $array=array();
     while ($row = $sql->fetch_assoc()) {            
         $res=$row['pro'];
-	$ref = "KIK_".$res."_".$date."_".$id;		
+	//$ref = "KIK_".$res."_".$date."_".$id;		
         $array = array(
             
             'ref' => $ref,
@@ -194,6 +194,43 @@ if (isset($_POST['ref_req'])){ // reference number per user project
     die(json_encode($array));
 }
 
+if (isset($_POST['fmnf'])){ // fan manufacturer
+ 
+    $sql = $conn->query("SELECT DISTINCT `man` FROM `fan`");
+    $array=array();
+    while ($row = $sql->fetch_assoc()) {            
+        array_push($array,$row['man']);
+    }
+    die(json_encode($array));
+}
+
+if (isset($_POST['fan_model'])){ // fan models
+    
+    $man = $_POST['fan_man'];
+    $sql = $conn->query("SELECT DISTINCT `model` FROM `fan` where `man` = '$man' ");
+    $array=array();
+    while ($row = $sql->fetch_assoc()) {            
+        array_push($array,$row['model']);
+    }
+    die(json_encode($array));
+}
+
+if (isset($_POST['fan_airf'])){ // fan air flow
+    $f_model = $_POST['fn_model'];     // fan model
+    $f_man = $_POST['fn_man'];  // fan manufacturer
+    
+    $sql = $conn->query("SELECT `af` FROM `fan` WHERE `man`= '$f_man' and `model`='$f_model' ");
+    //$sql = $conn->query("SELECT `af` FROM `fan` WHERE `model`='$f_model'");
+    $array=array();
+
+    while ($row = $sql->fetch_assoc()) {
+        $res=$row['af'];   
+        $array = array(     
+            'af' => $res,
+        );
+    }
+    die(json_encode($array));
+}
 
 
 ?>

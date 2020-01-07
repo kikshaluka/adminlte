@@ -283,7 +283,6 @@ if(isset($_POST['h125w'])){
     $rpwrloss = $_POST['pwrloss']; //row power loss
     $dfac = $_POST['dfac']; // demand factor
 
-
     $loss = $rpwrloss*($dfac**2); //actual power loss
     $val = $height/($width/$wFactor);
 
@@ -297,7 +296,6 @@ if(isset($_POST['h125w'])){
     $array = array('t05' => $t05,'t1' => $t1);
     die(json_encode($array));
 
-
     //echo $t05."<br/>".$t1."<br/>";
 }
 
@@ -310,7 +308,6 @@ if(isset($_POST['for_vent'])){ // forced ventilation - fan capacity
     while ($row = $sql->fetch_assoc()) {
 
         $fac = $row['fac'];
-       
 
         $array = array(
             'Ae' => $Ae,
@@ -319,15 +316,13 @@ if(isset($_POST['for_vent'])){ // forced ventilation - fan capacity
     die(json_encode($array));
 }
 
-if (isset($_POST['fan_cap'])){
+if (isset($_POST['fan_cap'])){ //fan capacity function
 
     $enc_loc = $_POST['loc'];     // location of the enclosure
     $act_ploss = $_POST['act_ploss'];  // actual power loss
     $ae = $_POST['ae'];//Ae
     $tar_temp = $_POST['ttemp']; // target temperature
     $amb_temp = $_POST['atemp']; // ambient temp
-
-
 
     //$sql = $conn->query("SELECT `af` FROM `fan` WHERE `man`= '$f_man' and `model`='$f_model' ");
     $sql = $conn->query("SELECT `fac` FROM `htofac` WHERE `height`='$enc_loc'");
@@ -346,8 +341,51 @@ if (isset($_POST['fan_cap'])){
     else{
         $tar_temp = $_POST['ttemp']; // target temperature
         $amb_temp = $_POST['atemp']; // ambient temp
+        $hs = $_POST['horz']; // horizontal separation
+            //$array = array();
+        $sql = $conn->query("SELECT `curve` FROM `position` WHERE `pos_name`='$posi'");
+        $row = $sql->fetch_assoc();
+        $curve = $row['curve']; //curve measurment
+        //echo $curve;
+
+        $sql = $conn->query("SELECT `a`,`b`,`c` FROM `l1.25wo` WHERE `curve` = '$curve'");
+        while ($row = $sql->fetch_assoc()) {
+            $a=$row['a'];
+            $b=$row['b'];
+            $c=$row['c'];
+            //echo $a.$b.$c;     
+        }
+        $ao = (($width/$wFactor)*$depth)/(1000*1000); // top surface
+        $f = (($height/1000)**1.35)/$ao; 
+        $cd = $a*exp(-exp($b-$c*$f))*(0.6/1.6)+1;  
+    
+        $k = 0.0459536911922546/(1-0.987175746302811*exp(-0.0647798482560785*$ae)); // based on Ae k value is calculated
+        
+        $d=horz($hs);
+        
+        $temp = ($tar_temp - $amb_temp)/$cd;
+        $res = ($temp/($k*$d))**(1/0.804);
+
     }
 }
 
+function fanqty($fancap,$af){ // fan qunatity function
+    // fan capacity and air flow of the fan 
+    $fanq = $fancap / $af;
+    if($fanq>0){
+        $res = round($fanq);
+    }
+    else{
+        $res = 1;
+    }
+    return $res;
+
+}
+
+function fanmaxtemp($f,$q,$fanqty,$af){ // fan maximum temp.
+    $an = $fanqty*$af;//dV
+    $res = ($f*$q)/$an; // maximum temperature
+    return $res; 
+}
 
 ?>

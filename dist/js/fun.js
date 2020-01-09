@@ -76,10 +76,10 @@ function calcutaion(){  //Ae Calculation
           dataType:'json',
           success: function calcutaion (response) {
             document.getElementById('Ae').value = response['Ae'].toFixed(2);
-            ef_cooling();
+            //ef_cooling();
           }
         });
-        ef_cooling();
+        //ef_cooling();
 
   }
 }

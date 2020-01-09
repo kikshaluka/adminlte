@@ -185,7 +185,7 @@ if (isset($_POST['ref_req'])){ // reference number per user project
     $array=array();
     while ($row = $sql->fetch_assoc()) {            
         $res=$row['pro'];
-	//$ref = "KIK_".$res."_".$date."_".$id;		
+	    $ref = "KIK_".$res."_".$date."_".$id;		
         $array = array(
             
             'ref' => $ref,
